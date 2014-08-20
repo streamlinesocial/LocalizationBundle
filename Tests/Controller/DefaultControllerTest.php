@@ -1,6 +1,6 @@
 <?php
 
-namespace StrSocial\LocalizationBundle\Tests\Controller;
+namespace StrSocial\Bundle\LocalizationBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

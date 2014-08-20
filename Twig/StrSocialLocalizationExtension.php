@@ -1,5 +1,5 @@
 <?php
-namespace StrSocial\LocalizationBundle\Twig;
+namespace StrSocial\Bundle\LocalizationBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

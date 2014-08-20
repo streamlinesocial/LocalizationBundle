@@ -1,6 +1,6 @@
 <?php
 
-namespace StrSocial\LocalizationBundle\DependencyInjection;
+namespace StrSocial\Bundle\LocalizationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

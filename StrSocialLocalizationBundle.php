@@ -1,6 +1,6 @@
 <?php
 
-namespace StrSocial\LocalizationBundle;
+namespace StrSocial\Bundle\LocalizationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

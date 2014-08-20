@@ -1,6 +1,6 @@
 <?php
 
-namespace StrSocial\LocalizationBundle\Controller;
+namespace StrSocial\Bundle\LocalizationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -8,27 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use StrSocial\TeamBundle\Controller\BaseController;
-use StrSocial\TeamBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyController;
+
 
 /**
  * @Route("/l10n")
  */
-class DefaultController extends BaseController
+class DefaultController extends SymfonyController
 {
-    
-    /**
-     * Handle authorization to all actions inside this controller
-     * @throws AccessDeniedException
-     */
-    private function auth(){
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof User) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-    }
-    
-    
+
     /**
      * @Route("/timezone", name="get_session_timezone")
      * @Method("GET")

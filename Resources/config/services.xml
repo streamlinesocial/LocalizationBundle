@@ -6,7 +6,7 @@
 
 	<services>
 		<!-- L10N TWIG EXTENSION -->
-		<service id="str_social.twig.localization" class="StrSocial\LocalizationBundle\Twig\StrSocialLocalizationExtension">
+		<service id="str_social.twig.localization" class="StrSocial\Bundle\LocalizationBundle\Twig\StrSocialLocalizationExtension">
 	        <tag name="twig.extension" />
 	        <argument type="service" id="service_container"/>
 	    </service>
