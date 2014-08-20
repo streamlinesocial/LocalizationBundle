@@ -1,20 +1,17 @@
 Modify the following files on your Symfony project to enable this bundle:
 
 1. in app/AppKernel.php
-```php
-	class AppKernel extends Kernel
-	{
-        	public function registerBundles()
-        	{
-            		$bundles = array(
-				...
-		    		new StrSocial\Bundle\LocalizationBundle\StrSocialLocalizationBundle(),
-	    		);
-        	}
-        
-    	}
-```
 
+```php
+class AppKernel extends Kernel
+{
+	public function registerBundles(){
+		$bundles = array(
+			new StrSocial\Bundle\LocalizationBundle\StrSocialLocalizationBundle(),
+		);
+	}
+}
+```
 
 2. app/config/routing.yml 
 ```yml
@@ -23,3 +20,5 @@ Modify the following files on your Symfony project to enable this bundle:
 		type:     annotation
 		prefix:   /
 ```
+
+
