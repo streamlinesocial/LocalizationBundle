@@ -47,7 +47,7 @@ StrSocialL10n.api.timezone.get = function( successCallback, errorCallback ){
 /**
  * This functions checks if server is aware of the client's timezone
  */
-StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
+StrSocialL10n.fn.postTimeZoneAndReloadPageIfNeeded = function(){
 	
 	StrSocialL10n.api.timezone.get( function(){},
 		function(rsp){
@@ -55,7 +55,7 @@ StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
 			var visitortimezone = jstz.determine().name();
 			StrSocialL10n.api.timezone.post( visitortimezone, function(){
 				// on success reload the page
-					location.reload();
+				location.reload();
 			}, function(){
 				//error callback
 				StrSocialL10n.fn.postTimeZoneIfNeeded();
@@ -79,8 +79,3 @@ StrSocialL10n.fn.frontControllerScriptName = function(){
 	return scriptName;
 };
 
-
-
-$(document).ready(function(){
-	StrSocialL10n.fn.postTimeZoneIfNeeded();
-});

@@ -35,6 +35,6 @@ class AppKernel extends Kernel
 4. to easily activate the feature from the frontend, add this to your js script
 ```js
 $(document).ready(function(){
-	StrSocialL10n.fn.postTimeZoneIfNeeded();
+	StrSocialL10n.fn.postTimeZoneAndReloadPageIfNeeded();
 });
 ```
