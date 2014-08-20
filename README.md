@@ -21,4 +21,20 @@ class AppKernel extends Kernel
 		prefix:   /
 ```
 
+3. add l10n js scripts to your twig
 
+```twig
+{% javascripts
+    '@StrSocialLocalizationBundle/Resources/public/js/vendor/*'
+    '@StrSocialLocalizationBundle/Resources/public/js/*'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+```
+
+4. to easily activate the feature from the frontend, add this to your js script
+```js
+$(document).ready(function(){
+	StrSocialL10n.fn.postTimeZoneIfNeeded();
+});
+```
