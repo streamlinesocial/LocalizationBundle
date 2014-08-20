@@ -36,8 +36,8 @@ StrSocialL10n.api.timezone.get = function( successCallback, errorCallback ){
 		success: function(rsp){
 			successCallback(rsp);
 		},
-		error: function(rsp){
-			errorCallback(rsp);
+		error: function(){
+			errorCallback();
 		}
 	});
 }
@@ -45,14 +45,17 @@ StrSocialL10n.api.timezone.get = function( successCallback, errorCallback ){
 
 
 /**
- * This functions checks if server is aware of the client's timezone
+ * Helpers and wrappers
  */
+
+
+// This functions checks if server is aware of the client's timezone, and if that's not the case, then post the current timezone and force a page reload
 StrSocialL10n.fn.postTimeZoneAndReloadPageIfNeeded = function(){
 	
 	StrSocialL10n.api.timezone.get( function(){},
 		function(rsp){
 			var visitortime = new Date();
-			var visitortimezone = jstz.determine().name();
+			var visitortimezone = StrSocialL10n.fn.currentTimeZone();
 			StrSocialL10n.api.timezone.post( visitortimezone, function(){
 				// on success reload the page
 				location.reload();
@@ -63,8 +66,19 @@ StrSocialL10n.fn.postTimeZoneAndReloadPageIfNeeded = function(){
 		}
 	);
 
-};
+}
 
+
+StrSocialL10n.fn.currentGmtOffset = function(){
+	var d = new Date()
+	var gmtOffset = -d.getTimezoneOffset();
+	return gmtOffset;
+}
+
+
+StrSocialL10n.fn.currentTimeZone = function(){
+	return jstz.determine().name();
+}
 
 
 StrSocialL10n.fn.frontControllerScriptName = function(){
@@ -77,5 +91,5 @@ StrSocialL10n.fn.frontControllerScriptName = function(){
 		}
 	}
 	return scriptName;
-};
+}
 
