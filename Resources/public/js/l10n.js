@@ -16,7 +16,7 @@ StrSocialL10n.api.timezone.post = function( tz, successCallback, errorCallback )
 	$.ajax({
 		type: "POST",
 		url: location.protocol + '//' + location.host + StrSocialL10n.fn.frontControllerScriptName() + "/l10n/timezone",
-		data: { timezone: jstz.determine().name() },
+		data: { timezone: tz },
 		success: function(rsp){
 			successCallback( rsp );
 		},
@@ -27,21 +27,32 @@ StrSocialL10n.api.timezone.post = function( tz, successCallback, errorCallback )
 }
 
 
-
-/**
- * This functions checks if server is aware of the client's timezone
- */
-StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
-	console.log('checking remote timezone...');
+StrSocialL10n.api.timezone.get = function( successCallback, errorCallback ){
+	console.log('getting remote timezone...');
 
 	$.ajax({
 		type: "GET",
 		url: location.protocol + '//' + location.host + StrSocialL10n.fn.frontControllerScriptName() + "/l10n/timezone",
 		success: function(rsp){
+			successCallback(rsp);
 		},
 		error: function(rsp){
+			errorCallback(rsp);
+		}
+	});
+}
+
+
+
+/**
+ * This functions checks if server is aware of the client's timezone
+ */
+StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
+	
+	StrSocialL10n.api.timezone.get( function(){},
+		function(rsp){
 			var visitortime = new Date();
-			var visitortimezone = -visitortime.getTimezoneOffset()/60;
+			var visitortimezone = jstz.determine().name();
 			StrSocialL10n.api.timezone.post( visitortimezone, function(){
 				// on success reload the page
 					location.reload();
@@ -50,7 +61,8 @@ StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
 				StrSocialL10n.fn.postTimeZoneIfNeeded();
 			});
 		}
-	});
+	);
+
 };
 
 
