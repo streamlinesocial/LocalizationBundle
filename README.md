@@ -1,7 +1,7 @@
 Modify the following files on your Symfony project to enable this bundle:
 
 1. in app/AppKernel.php
-
+```php
 	class AppKernel extends Kernel
 	{
         	public function registerBundles()
@@ -13,12 +13,13 @@ Modify the following files on your Symfony project to enable this bundle:
         	}
         
     	}
+```
 
 
 2. app/config/routing.yml 
-
+```yml
 	str_social_localization_bundle:
 		resource: "@StrSocialLocalizationBundle/Controller/"
 		type:     annotation
 		prefix:   /
-
+```
