@@ -16,14 +16,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyController;
  */
 class DefaultController extends SymfonyController
 {
-
     /**
      * @Route("/timezone", name="get_session_timezone")
      * @Method("GET")
      */
     public function getSessionTimezone()
     {
-        $this->auth();
         $request = $this->getRequest();
         $session = $request->getSession();
         $tz = $session->get('timezone');
@@ -34,13 +32,42 @@ class DefaultController extends SymfonyController
         return new Response( json_encode( array('timezone' => $tz) ), 200);
     }
     
+    
     /**
-     * @Route("/gmt-offset", name="set_gmt_offset")
+     * @Route("/timezone", name="set_timezone")
      * @Method("POST")
      */
-    public function setSessionTimezone()
+    public function setTimezone()
     {
-        $this->auth();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $timezone = $request->request->get('timezone');
+        
+        // validating posted timezone
+        $validTimezonesArr = \DateTimeZone::listAbbreviations();
+        $isValid = false;
+        foreach( $validTimezonesArr as $category => $tz ){
+            if( $tz[0]['timezone_id'] == $timezone ){
+                $isValid = true;
+                break;
+            }
+        }
+        
+        if( ! $isValid ){
+            return new Response(null, 400);
+        }else{
+            $session->set('timezone', $timezone );
+            return new Response(null,204);
+        }
+    }
+    
+    
+    /**
+     * @Route("/gmt-offset", name="set_timezone_by_gmt_offset")
+     * @Method("POST")
+     */
+    public function setSessionTimezoneByGmtOffset()
+    {
         $request = $this->getRequest();
         $session = $request->getSession();
         $tzOffset = $request->request->get('timezone');
@@ -49,7 +76,7 @@ class DefaultController extends SymfonyController
         }else{
             $tzOffset = intval( $tzOffset )*60*60;
             $timezonesArr = \DateTimeZone::listAbbreviations();
-            
+    
             foreach( $timezonesArr as $category => $tz ){
                 if( $tz[0]['offset'] == $tzOffset ){
                     $timeZoneId = $tz[0]['timezone_id'];
