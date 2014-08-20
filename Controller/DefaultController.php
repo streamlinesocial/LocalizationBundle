@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyController;
 class DefaultController extends SymfonyController
 {
     /**
-     * @Route("/timezone", name="get_session_timezone")
+     * @Route("/timezone", name="strl10n_get_session_timezone")
      * @Method("GET")
      */
     public function getSessionTimezone()
@@ -34,7 +34,7 @@ class DefaultController extends SymfonyController
     
     
     /**
-     * @Route("/timezone", name="set_timezone")
+     * @Route("/timezone", name="strl10n_set_timezone")
      * @Method("POST")
      */
     public function setTimezone()
@@ -63,7 +63,7 @@ class DefaultController extends SymfonyController
     
     
     /**
-     * @Route("/gmt-offset", name="set_timezone_by_gmt_offset")
+     * @Route("/gmt-offset", name="strl10n_set_timezone_by_gmt_offset")
      * @Method("POST")
      */
     public function setSessionTimezoneByGmtOffset()
