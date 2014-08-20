@@ -8,7 +8,6 @@ var StrSocialL10n = {
     }
 };
 
-
 /**
  * server API
  */
@@ -16,8 +15,8 @@ StrSocialL10n.api.timezone.post = function( tz, successCallback, errorCallback )
 	console.log('updating remote timezone...');
 	$.ajax({
 		type: "POST",
-		url: location.protocol + '//' + location.host + "/app_dev.php/l10n/gmt-offset",
-		data: { timezone: tz },
+		url: location.protocol + '//' + location.host + StrSocialL10n.fn.frontControllerScriptName() + "/l10n/timezone",
+		data: { timezone: jstz.determine().name() },
 		success: function(rsp){
 			successCallback( rsp );
 		},
@@ -37,7 +36,7 @@ StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
 
 	$.ajax({
 		type: "GET",
-		url: location.protocol + '//' + location.host + "/app_dev.php/l10n/timezone",
+		url: location.protocol + '//' + location.host + StrSocialL10n.fn.frontControllerScriptName() + "/l10n/timezone",
 		success: function(rsp){
 		},
 		error: function(rsp){
@@ -52,6 +51,20 @@ StrSocialL10n.fn.postTimeZoneIfNeeded = function(){
 			});
 		}
 	});
+};
+
+
+
+StrSocialL10n.fn.frontControllerScriptName = function(){
+	var pathArray = window.location.pathname.split( '/' );
+	var scriptName = '/';
+	
+	for( var i=0; scriptName.length <= 1 && i <= pathArray.length; i++ ){
+		if(pathArray[i].indexOf('.php')){
+			scriptName += pathArray[i];
+		}
+	}
+	return scriptName;
 };
 
 
